@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Card Interaction</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* ===== CSS ===== */
+        #profile-card {
+            width: 250px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background: white;
+            transition: all 0.5s;
+        }
+
+        .highlighted {
+            border: 5px solid #f39c12;
+            background-color: #ffec99;
+            transform: scale(1.05);
+        }
+
+        .dark-mode {
+            background: #333;
+            color: white;
+        }
+
+        .rounded {
+            border-radius: 50%;
+        }
+
+        .shadow {
+            box-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        button {
+            margin: 5px;
+            padding: 5px 10px;
+        }
+
+        #output {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="profile-card">
+        <h2 id="student-name">Student Name</h2>
+        <div id="student-bio"><b>I am an </b>animated character.</div>
+        <img id="profile-photo" src="Profile.jpg" alt="Profile Photo">
+        <ul id="skills-list">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+        </ul>
+    </div>
+
+    <input type="text" id="nickname-input" placeholder="Enter nickname">
+
+    <!-- GET & SET -->
+    <div class="section">
+        <h3> GET & SET </h3>
+        <button id="show-name">Show Name</button>
+        <button id="change-name">Change Name</button>
+        <button id="show-bio">Show Bio</button>
+        <button id="get-input">Get Input</button>
+        <button id="set-input">Set Input</button>
+    </div>
+
+    <!-- CSS CLASSES -->
+    <div class="section">
+        <h3> CSS CLASSES </h3>
+        <button id="highlight-card">Highlight Card</button>
+        <button id="remove-highlight">Remove Highlight</button>
+        <button id="toggle-dark-mode">Toggle Dark Mode</button>
+        <button id="toggle-rounded">Toggle Rounded</button>
+    </div>
+
+    <!-- CSS -->
+    <div class="section">
+        <h3> CSS </h3>
+        <button id="pink-bg">Pink Background</button>
+        <button id="reset-bg">Reset Background</button>
+    </div>
+
+    <!-- HIDE & SHOW -->
+    <div class="section">
+        <h3> HIDE AND SHOW </h3>
+        <button id="hide-photo">Hide Photo</button>
+        <button id="show-photo">Show Photo</button>
+        <button id="toggle-bio">Toggle Bio</button>
+    </div>
+
+    <!-- FADE -->
+    <div class="section">
+        <h3> FADE </h3>
+        <button id="fade-out-card">Fade Out Card</button>
+        <button id="fade-in-card">Fade In Card</button>
+        <button id="fade-to-50">Fade 50% Toggle</button>
+    </div>
+
+    <!-- SLIDE -->
+    <div class="section">
+        <h3> SLIDE </h3>
+        <button id="slide-up-skills">Slide Up Skills</button>
+        <button id="slide-down-skills">Slide Down Skills</button>
+        <button id="slide-toggle-skills">Slide Toggle Skills</button>
+    </div>
+
+    <!-- ANIMATE -->
+    <div class="section">
+        <h3> ANIMATE </h3>
+        <button id="animate-card">Animate Card</button>
+    </div>
+
+    <!-- Output box -->
+    <div class="section">
+        <h3> OUTPUT BOX </h3>
+        <div id="output" style="margin-top:20px; font-weight:bold;"></div>
+    </div>
+
+    <script>
+        $(function() { 
+
+            // GET & SET 
+            $("#show-name").click(() => $("#output").text($("#student-name").text()));
+            $("#change-name").click(() => $("#student-name").text("Ojaswi Koju"));
+            $("#show-bio").click(() => $("#output").html($("#student-bio").html())); 
+            $("#get-input").click(() => $("#output").text($("#nickname-input").val()));
+            $("#set-input").click(() => $("#nickname-input").val("jQuery Pro"));
+
+            // CSS CLASSES 
+            $("#highlight-card").click(() => $("#profile-card").addClass("highlighted"));
+            $("#remove-highlight").click(() => $("#profile-card").removeClass("highlighted"));
+            $("#toggle-dark-mode").click(() => $("#profile-card").toggleClass("dark-mode"));
+            $("#toggle-rounded").click(() => $("#profile-photo").toggleClass("rounded"));
+
+            // CSS METHOD 
+            $("#pink-bg").click(() => $("#profile-card").css("background", "pink"));
+            $("#reset-bg").click(() => $("#profile-card").css("background", "white"));
+
+            //  HIDE & SHOW 
+            $("#hide-photo").click(() => $("#profile-photo").hide("slow"));
+            $("#show-photo").click(() => $("#profile-photo").show("slow"));
+            $("#toggle-bio").click(() => $("#student-bio").toggle());
+
+            //  FADE 
+            $("#fade-out-card").click(() => $("#profile-card").fadeOut());
+            $("#fade-in-card").click(() => $("#profile-card").fadeIn());
+            $("#fade-to-50").click(() => 
+                $("#profile-card").fadeTo("slow", 
+                    $("#profile-card").css("opacity") == 1 ? 0.5 : 1
+                )
+            );
+
+            // SLIDE
+            $("#slide-up-skills").click(() => $("#skills-list").slideUp());
+            $("#slide-down-skills").click(() => $("#skills-list").slideDown());
+            $("#slide-toggle-skills").click(() => $("#skills-list").slideToggle());
+
+            // ANIMATE 
+            $("#animate-card").click(() => 
+                $("#profile-card").animate({ "margin-left": "200px" }, 1000)
+                                  .animate({ "margin-left": "0px" }, 1000)
+            );
+
+            //  EVENTS 
+            $("#profile-photo").hover(
+                () => $("#profile-photo").addClass("shadow"),
+                () => $("#profile-photo").removeClass("shadow")
+            );
+
+            $("#nickname-input").on("keypress", e => $("#output").text(`Key pressed: ${e.key}`));
+
+        });
+    </script>
+</body>
+</html>
